@@ -6,7 +6,9 @@
  *          when the amount of light decreases in order to understand the
  *          working systems of the systems where the lighting is turned on
  *          automatically when it gets dark.
- *          https://docs.picobricks.com/en/latest/projects/autonomous-lighting.html */
+ *          https://docs.picobricks.com/en/latest/projects/autonomous-lighting.html
+ * @attention   The library "Adafruit NeoPixel" is needed.
+ */
 
 #include <Arduino.h>
 #include <stdint.h>
@@ -22,21 +24,21 @@
 #define NUMLEDS                     1
 #define DELAY_PIXEL                 500
 
-static class Adafruit_NeoPixel g_leds(Adafruit_NeoPixel(NUMLEDS,
-                                                        PICOBRICKS_NEOPIXEL_PIN,
-                                                        NEO_GRB + NEO_KHZ800));
+static class Adafruit_NeoPixel g_leds(NUMLEDS, PICOBRICKS_NEOPIXEL_PIN,
+                                      NEO_GRB + NEO_KHZ800);
 static const int32_t g_threshold(200);
 
 void
 setup ()
 {
+#if 0
     Serial.begin(115200);
 
     while (!Serial)
     {
         /* Do nothing */
     }
-
+#endif
     pinMode(PICOBRICKS_NEOPIXEL_PIN, OUTPUT);
     pinMode(PICOBRICKS_LDR_PIN, INPUT);
     analogReadResolution(12);
@@ -48,11 +50,12 @@ void
 loop ()
 {
     int32_t read_ldr = analogRead(PICOBRICKS_LDR_PIN);
-    String print_string = "0";
-
     g_leds.clear();
-    print_string = "Value of LDR is " + read_ldr;
+#if 0
+    String print_string = "Value of LDR is " + read_ldr;
+
     Serial.println(print_string);
+#endif
 
     for (uint32_t idx = 0; idx < NUMLEDS; ++idx)
     {
@@ -76,7 +79,6 @@ loop ()
         }
     }
 }   /* loop() */
-
 
 
 /*** End of file ***/
