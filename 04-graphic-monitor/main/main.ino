@@ -11,8 +11,6 @@
  *          values we read from the potentiometer as PWM signals to the red LED
  *          and we will be able to adjust the illumination intensity.
  *          https://docs.picobricks.com/en/latest/projects/graphic%20monitor.html
- * @attention   The library "ACROBOTIC SSD1306" and "DHT sensor library" are
- *              needed.
  */
 
 #include <Arduino.h>
